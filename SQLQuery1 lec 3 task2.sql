@@ -214,3 +214,175 @@ ORDER BY
 unit_price DESC,
 quantity DESC,
 discount_percent DESC;
+
+
+SELECT
+    COUNT(*) AS total_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price,
+    MAX(unit_price) AS highest_unit_price,
+    MIN(unit_price) AS lowest_unit_price
+FROM sales_transactions;
+
+
+SELECT
+    category,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+GROUP BY category
+ORDER BY total_sales_value DESC;
+
+
+SELECT
+    salesperson,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+GROUP BY salesperson
+ORDER BY total_sales_value DESC;
+
+
+SELECT
+city,
+COUNT(*) AS number_of_transactions,
+SUM(quantity) AS total_quantity_sold,
+SUM(quantity * unit_price) AS total_sales_value,
+AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+GROUP BY city
+ORDER BY total_sales_value DESC;
+
+
+SELECT
+    customer_type,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_purchased,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+GROUP BY customer_type
+ORDER BY total_sales_value DESC;
+
+
+SELECT
+    payment_mode,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+GROUP BY payment_mode
+ORDER BY total_sales_value DESC;
+
+
+SELECT
+category,
+COUNT(*) AS number_of_transactions,
+SUM(quantity) AS total_quantity_sold,
+SUM(quantity * unit_price) AS total_sales_value,
+AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+GROUP BY category
+HAVING SUM(quantity * unit_price) > 30000
+ORDER BY total_sales_value DESC;
+
+
+SELECT
+    salesperson,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value
+FROM sales_transactions
+GROUP BY salesperson
+HAVING SUM(quantity * unit_price) > 500000
+ORDER BY total_sales_value DESC;
+
+
+SELECT
+    product_name,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+GROUP BY product_name
+HAVING SUM(quantity) > 5
+ORDER BY total_quantity_sold DESC;
+
+
+SELECT
+    category,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+WHERE customer_type = 'Premium'
+GROUP BY category
+HAVING SUM(quantity * unit_price) > 200000;
+
+
+SELECT
+    salesperson,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value
+FROM sales_transactions
+WHERE customer_type = 'VIP'
+GROUP BY salesperson
+HAVING SUM(quantity * unit_price) > 300000;
+
+
+SELECT
+city,
+COUNT(*) AS number_of_transactions,
+SUM(quantity) AS total_quantity_sold,
+SUM(quantity * unit_price) AS total_sales_value
+FROM sales_transactions
+WHERE payment_mode IN ('Online', 'Card')
+GROUP BY city
+HAVING SUM(quantity * unit_price) > 300000;
+
+
+SELECT
+    discount_percent,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+GROUP BY discount_percent
+HAVING COUNT(*) >= 2;
+
+
+SELECT
+    salesperson,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price,
+    MAX(unit_price) AS highest_unit_price
+FROM sales_transactions
+WHERE category = 'Electronics'
+GROUP BY salesperson
+HAVING SUM(quantity * unit_price) > 250000;
+
+
+SELECT
+    city,
+    COUNT(*) AS number_of_transactions,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(quantity * unit_price) AS total_sales_value,
+    AVG(unit_price) AS average_unit_price
+FROM sales_transactions
+WHERE category = 'Furniture' AND quantity > 2
+GROUP BY city
+HAVING SUM(quantity * unit_price) > 50000
+ORDER BY total_sales_value DESC;
+
+
